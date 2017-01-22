@@ -100,9 +100,15 @@ typedef struct {
 typedef struct {
   ANDGate *agate1;
   ORGate *ogate1;
+  NOTGate *ngate1;
   FA *f1;
   MUX4 *mux4;
+  MUX *binvert;
 } ALU;
+
+typedef struct {
+  ALU *alus;
+} ALU32;
 
 void path_set_signal(Path *p, Signal s);
 Signal path_get_signal(Path *p);
@@ -182,6 +188,11 @@ void mux4_init(MUX4 *mux4, Path *ct1, Path *ct2, Path *in1, Path *in2, Path *in3
 void mux4_run(MUX4 *mux4);
 void mux4_release(MUX4 *mux4);
 
-void alu_init(ALU *alu, Path *op2, Path *op1, Path *a, Path *b, Path *carryin, Path *s, Path *carryout);
+void alu_init(ALU *alu, Path *op2, Path *op1, Path *a, Path *b, Path *bin, Path *carryin, Path *s, Path *carryout);
 void alu_run(ALU *alu);
 void alu_release(ALU *alu);
+
+void alu32_init(ALU32 *alu32, Path *op2, Path *op1, Bus *a, Bus *b, Path *bin, Path *carryin, Bus *s, Path *carryout);
+void alu32_run(ALU32 *alu32);
+void alu32_release(ALU32 *alu32);
+
