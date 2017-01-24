@@ -4,35 +4,35 @@
 
 int main(int argc, char **argv) {
 
-  printf("ANDDriver\n");
+  printf("AND Driver\n");
   andgate_driver(true, true);
   andgate_driver(true, false);
   andgate_driver(false, true);
   andgate_driver(false, false);
 
-  printf("ORDriver\n");
+  printf("OR Driver\n");
   orgate_driver(true, true);
   orgate_driver(true, false);
   orgate_driver(false, true);
   orgate_driver(false, false);
 
-  printf("NOTDriver\n");
+  printf("NOT Driver\n");
   notgate_driver(true);
   notgate_driver(false);
 
-  printf("NANDDriver\n");
+  printf("NAND Driver\n");
   nandcircuit_driver(true, true);
   nandcircuit_driver(true, false);
   nandcircuit_driver(false, true);
   nandcircuit_driver(false, false);
 
-  printf("XORDriver\n");
+  printf("XOR Driver\n");
   xorcircuit_driver(true, true);
   xorcircuit_driver(true, false);
   xorcircuit_driver(false, true);
   xorcircuit_driver(false, false);
 
-  printf("FADriver\n");
+  printf("FA Driver\n");
   fa_driver(true, true, true);
   fa_driver(true, true, false);
   fa_driver(true, false, true);
@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
   fa_driver(false, false, true);
   fa_driver(false, false, false);
   
-  printf("RCADriver\n");
+  printf("RCA Driver\n");
   rca_driver(0, 0);
   rca_driver(1, 0);
   rca_driver(0, 1);
@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
   clu_driver(5, 3);
   */
 
-  printf("CLA4Driver\n");
+  printf("CLA4 Driver\n");
   cla4_driver(2, 3);
   cla4_driver(0, 0);
   cla4_driver(1, 0);
@@ -73,5 +73,45 @@ int main(int argc, char **argv) {
   cla4_driver(4, 11);
   cla4_driver(4, 12);
 
+  printf("MUX Driver\n");
+  mux_driver(false, true, false);
+  mux_driver(false, false, true);
+  mux_driver(true, false, true);
+  mux_driver(true, true, false);
+
+  printf("MUX4 Driver\n");
+  mux4_driver(false, false, true, false, false, false);
+  mux4_driver(true, false, false, true, false, false);
+  mux4_driver(true, false, true, false, true, true);
+  mux4_driver(false, true, false, false, true, false);
+  mux4_driver(true, true, false, false, false, true);
+
+  printf("ALU Driver\n");
+  printf("//and test\n");     alu_driver(1, 0, 0, 0, 0, 0);         
+  printf("//or test\n");      alu_driver(1, 0, 1, 0, 0, 0);         
+  printf("//addition\n");     alu_driver(1, 0, 0, 1, 0, 0);
+                                alu_driver(1, 1, 0, 1, 0, 0);
+  printf("//substraction\n"); alu_driver(1, 1, 0, 1, 1, 0);
+  printf("//less check\n");   alu_driver(0, 0, 1, 1, 0, 1);
+                                alu_driver(0, 0, 1, 1, 1, 1);
+  
+  printf("ALU_MSB Driver\n");
+  printf("//and test\n");       alu_msb_driver(1, 0, 0, 0, 0, 0); 
+                                alu_msb_driver(1, 1, 0, 0, 0, 0);        
+  printf("//or test\n");        alu_msb_driver(1, 0, 1, 0, 0, 0);         
+  printf("//addition\n");       alu_msb_driver(1, 0, 0, 1, 0, 0);
+                                alu_msb_driver(1, 1, 0, 1, 0, 0);
+  printf("//substraction\n");   alu_msb_driver(1, 1, 0, 1, 1, 1);
+                                alu_msb_driver(1, 0, 0, 1, 1, 1);
+  printf("//set check\n");      alu_msb_driver(0, 0, 1, 1, 0, 1);
+                                alu_msb_driver(0, 0, 1, 1, 1, 1);
+  
+  printf("ALU32 Driver\n");
+  printf("and test\n");     alu32_driver(12, 4, 1, 0, 0);   
+  printf("or test\n");      alu32_driver(10, 4, 1, 0, 0);         
+  printf("addition\n");     alu32_driver(12, 4, 0, 1, 0);
+  printf("substraction\n"); alu32_driver(12, 4, 0, 1, 1);
+  printf("slt\n");          alu32_driver(12, 4, 1, 1, 1);
+ 
   return 0;
 }

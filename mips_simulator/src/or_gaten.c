@@ -20,4 +20,3 @@ void orgaten_run(ORGateN *ogaten){
 
 	path_set_signal(ogaten -> out1, val);
 }
-

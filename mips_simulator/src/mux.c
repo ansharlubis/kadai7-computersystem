@@ -43,3 +43,19 @@ void mux_release(MUX *mux){
 	free(mux -> agate2);
 	free(mux -> ogate1);
 }
+
+void mux_driver(Signal c1, Signal i1, Signal i2){
+	MUX mux;
+	Path ct1, in1, in2, out1;
+
+	path_init(&ct1); path_init(&in1); path_init(&in2); path_init(&out1);
+	path_set_signal(&ct1, c1); path_set_signal(&in1, i1); 
+	path_set_signal(&in2, i2);
+
+	mux_init(&mux, &ct1, &in1, &in2, &out1);
+	
+	mux_run(&mux);
+	printf("MUX(%d)(%d, %d) => %d\n", c1, i1, i2, path_get_signal(&out1));
+	mux_release(&mux);
+
+}

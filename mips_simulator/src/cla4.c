@@ -88,13 +88,12 @@ void cla4_release(CLA4 *cla4){
 	free(cla4 -> pfa -> agate1 -> in2);
 	free(cla4 -> clu -> agates -> in2);
 
-	free(cla4 -> agaten -> ins);
-	free((cla4 -> agaten+1) -> ins);
-	free((cla4 -> agaten+2) -> ins);
+	free(cla4 -> agaten -> out1);
 	free(cla4 -> ogaten -> ins);
-	free((cla4 -> agaten+3) -> ins);
+	free(cla4 -> agaten -> ins);
+	
 	free(cla4 -> agaten);
-	free(cla4 -> ogaten);	
+	free(cla4 -> ogaten);
 
 	clu_release(cla4 -> clu);
 	free(cla4 -> clu);

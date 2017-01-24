@@ -100,9 +100,25 @@ typedef struct {
 typedef struct {
   ANDGate *agate1;
   ORGate *ogate1;
+  NOTGate *ngate1;
   FA *f1;
   MUX4 *mux4;
+  MUX *binvert;
 } ALU;
+
+typedef struct {
+  ANDGate *agate1;
+  ORGate *ogate1;
+  NOTGate *ngate1;
+  FA *f1;
+  MUX4 *mux4;
+  MUX *binvert;
+} ALU_MSB;
+
+typedef struct {
+  ALU *alus;
+  ALU_MSB *alumsb;
+} ALU32;
 
 void path_set_signal(Path *p, Signal s);
 Signal path_get_signal(Path *p);
@@ -120,7 +136,6 @@ void andgate_driver(Signal a, Signal b);
 
 void andgaten_init(ANDGateN *agaten, Path **ins, Path *out1, int num);
 void andgaten_run(ANDGateN *agaten);
-void andgaten_release(ANDGateN *agaten);
 
 void orgate_init(ORGate *ogate, Path *in1, Path *in2, Path *out1);
 void orgate_run(ORGate *ogate);
@@ -128,7 +143,6 @@ void orgate_driver(Signal a, Signal b);
 
 void orgaten_init(ORGateN *ogaten, Path **ins, Path *out1, int num);
 void orgaten_run(ORGateN *ogaten);
-void orgaten_release(ORGateN *ogaten);
 
 void notgate_init(NOTGate *ngate, Path *in1, Path *out1);
 void notgate_run(NOTGate *ngate);
@@ -182,6 +196,15 @@ void mux4_init(MUX4 *mux4, Path *ct1, Path *ct2, Path *in1, Path *in2, Path *in3
 void mux4_run(MUX4 *mux4);
 void mux4_release(MUX4 *mux4);
 
-void alu_init(ALU *alu, Path *op2, Path *op1, Path *a, Path *b, Path *carryin, Path *s, Path *carryout);
+void alu_init(ALU *alu, Path *op1, Path *op2, Path *bin, Path *a, Path *b, Path *less, Path *carryin, Path *s, Path *carryout);
 void alu_run(ALU *alu);
 void alu_release(ALU *alu);
+
+void alu_msb_init(ALU_MSB *alu_msb, Path *op1, Path *op2, Path *bin, Path *a, Path *b, Path *less, Path *carryin, Path *s, Path *carryout, Path *set);
+void alu_msb_run(ALU_MSB *alu);
+void alu_msb_release(ALU_MSB *alu);
+
+void alu32_init(ALU32 *alu32, Path *ops, Bus *a, Bus *b, Bus *s);
+void alu32_run(ALU32 *alu32);
+void alu32_release(ALU32 *alu32);
+

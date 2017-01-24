@@ -56,18 +56,31 @@ void mux4_run(MUX4 *mux4){
 void mux4_release(MUX4 *mux4){
 	int i;
 
-	for(i = 0; i < 4; i++){
-		free((mux4 -> ngates+i) -> out1);
-	}
-
-	for(i = 0; i < 4; i++){
-		free((mux4 -> agatens+i) -> ins);
-		free((mux4 -> agatens+i) -> out1);
-	}
-
-	free(mux4 -> ogatens -> ins);
-
+	free(mux4 -> ngates -> out1);  			// free inner	
+	free(mux4 -> agatens -> ins); 			// free pa1
+	free((mux4 -> agatens+1) -> ins);		// free pa2
+	free((mux4 -> agatens+2) -> ins);		// free pa3
+	free((mux4 -> agatens+3) -> ins);		// free pa4
+	free(mux4 -> ogatens -> ins);			// free po1
+	
 	free(mux4 -> agatens);
 	free(mux4 -> ogatens);
 	free(mux4 -> ngates);
+}
+
+void mux4_driver(Signal c1, Signal c2, Signal i1, Signal i2, Signal i3, Signal i4){
+	MUX4 mux;
+	Path ct1, ct2, in1, in2, in3, in4, out1;
+	path_init(&ct1); path_init(&ct2);
+	path_init(&in1); path_init(&in2); path_init(&in3); path_init(&in4);
+
+	path_set_signal(&ct1, c1); path_set_signal(&ct2, c2);
+	path_set_signal(&in1, i1); path_set_signal(&in2, i2); path_set_signal(&in3, i3); path_set_signal(&in4, i4);
+
+	mux4_init(&mux, &ct1, &ct2, &in1, &in2, &in3, &in4, &out1);
+
+	mux4_run(&mux);
+	printf("MUX4(%d, %d)(%d, %d, %d, %d) => %d\n", c2, c1, i1, i2, i3, i4, path_get_signal(&out1));
+	mux4_release(&mux);
+
 }
