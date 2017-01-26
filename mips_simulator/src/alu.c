@@ -10,12 +10,13 @@ void alu_init(ALU *alu, Path *op1, Path *op2, Path *bin, Path *a, Path *b, Path 
 	Path *inner3; 	// f1 -> mux4
 	Path *inner4;	// ngate1 -> binvert
 	Path *inner5;	// binvert -> f1
-	
+		
 	inner1 = (Path *)malloc(sizeof(Path));
 	inner2 = (Path *)malloc(sizeof(Path));
 	inner3 = (Path *)malloc(sizeof(Path));
 	inner4 = (Path *)malloc(sizeof(Path));
 	inner5 = (Path *)malloc(sizeof(Path));
+	null = (Path *)malloc(sizeof(Path));
 	
 	path_init(inner1); path_init(inner2); path_init(inner3); 
 	path_init(inner4); path_init(inner5); 
@@ -63,15 +64,15 @@ void alu_release(ALU *alu){
 	free(alu -> binvert);
 }
 
-void alu_driver(Signal in1, Signal in2, Signal o1, Signal o2, Signal bin, Signal l){
+void alu_driver(Signal in1, Signal in2, Signal o1, Signal o2, Signal bin, Signal carry_in){
 	ALU alu;
-	Path a, b, op1, op2, binvert, less, carryout, s;
+	Path a, b, op1, op2, binvert, carryin, carryout, s;
 	path_init(&a); 
 	path_init(&b); 
 	path_init(&op1); 
 	path_init(&op2);
 	path_init(&binvert); 
-	path_init(&less); 
+	path_init(&carryin); 
 	path_init(&carryout); 
 	path_init(&s);
 
@@ -80,12 +81,12 @@ void alu_driver(Signal in1, Signal in2, Signal o1, Signal o2, Signal bin, Signal
 	path_set_signal(&op1, o1); 
 	path_set_signal(&op2, o2); 
 	path_set_signal(&binvert, bin);
-	path_set_signal(&less, l); 
+	path_set_signal(&carryin, carry_in); 
 
-	alu_init(&alu, &op1, &op2, &binvert, &a, &b, &less, &binvert, &s, &carryout);
+	alu_init(&alu, &op1, &op2, &binvert, &a, &b, &carryin, &s, &carryout);
 
 	alu_run(&alu);
-	printf("ALU(op: %d, %d)(bin: %d)(less: %d)(%d, %d) => %d, %d\n", o2, o1, bin, l, in1, in2, path_get_signal(&s), path_get_signal(&carryout));
+	printf("ALU(op: %d, %d)(bin: %d)(carryin: %d)(%d, %d) => %d, %d\n", o2, o1, bin, carry_in, in1, in2, path_get_signal(&s), path_get_signal(&carryout));
 	alu_release(&alu);
 }
 

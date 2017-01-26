@@ -203,8 +203,12 @@ void alu_release(ALU *alu);
 void alu_msb_init(ALU_MSB *alu_msb, Path *op1, Path *op2, Path *bin, Path *a, Path *b, Path *less, Path *carryin, Path *s, Path *carryout, Path *set);
 void alu_msb_run(ALU_MSB *alu);
 void alu_msb_release(ALU_MSB *alu);
+void alu_msb_driver(Signal in1, Signal in2, Signal o1, Signal o2, Signal bin, Signal carry_in);
 
 void alu32_init(ALU32 *alu32, Path *ops, Bus *a, Bus *b, Bus *s);
 void alu32_run(ALU32 *alu32);
 void alu32_release(ALU32 *alu32);
+void alu32_driver(int na, int nb, Signal o1, Signal o2, Signal bin);
+
+
 
