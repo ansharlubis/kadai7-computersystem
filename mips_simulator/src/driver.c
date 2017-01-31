@@ -73,6 +73,7 @@ int main(int argc, char **argv) {
   cla4_driver(4, 11);
   cla4_driver(4, 12);
 
+  /*
   printf("MUX Driver\n");
   mux_driver(false, true, false);
   mux_driver(false, false, true);
@@ -99,21 +100,8 @@ int main(int argc, char **argv) {
   printf("//substraction\n"); 
   alu_driver(1, 1, 0, 1, 1, 1);
   alu_driver(1, 0, 0, 1, 1, 1);
-  alu_driver(0, 1, 0, 1, 1, 1);
   alu_driver(0, 0, 0, 1, 1, 1);
   
-  /*
-  printf("ALU32 Driver\n");
-  printf("and test\n");     
-  alu32ver2_driver(12, 4, 0, 0, 0);   
-  printf("or test\n");      
-  alu32ver2_driver(10, 4, 1, 0, 0);         
-  printf("addition\n");     
-  alu32ver2_driver(12, 4, 0, 1, 0);
-  printf("substraction\n"); 
-  alu32ver2_driver(12, 4, 0, 1, 1);
-  */
-
   printf("ALU_MSB Driver\n");
   printf("//and test\n");       
   alu_msb_driver(1, 0, 0, 0, 0, 0); 
@@ -122,14 +110,38 @@ int main(int argc, char **argv) {
   alu_msb_driver(1, 0, 1, 0, 0, 0);         
   printf("//addition\n");       
   alu_msb_driver(1, 0, 0, 1, 0, 0);
+  alu_msb_driver(0, 1, 0, 1, 0, 0);
   alu_msb_driver(1, 1, 0, 1, 0, 0);
   printf("//substraction\n");   
   alu_msb_driver(1, 1, 0, 1, 1, 1);
   alu_msb_driver(1, 0, 0, 1, 1, 1);
-    
+  alu_msb_driver(0, 0, 0, 1, 1, 1);
+  */
+
+  printf("ALU32 Driver\n");
+  printf("//and test\n");     
+  alu32_driver(12, 4, 0, 0, 0);   
+  alu32_driver(0, 0, 0, 0, 0);
+  printf("//or test\n");      
+  alu32_driver(10, 4, 1, 0, 0);         
+  printf("//addition\n");     
+  alu32_driver(12, 4, 0, 1, 0);
+  printf("//substraction\n"); 
+  alu32_driver(1384, 324, 0, 1, 1);
+  alu32_driver(323, 1384, 0, 1, 1);
+  printf("//slt\n");
+  alu32_driver(2, 4, 1, 1, 1);
+  alu32_driver(4, 2, 1, 1, 1);
+  printf("//overflow\n");
+  alu32_driver(2147483647, 10, 0, 1, 0);
+  alu32_driver(-2147483648, -10, 0, 1, 0);
+  alu32_driver(2147483647, -10, 0, 1, 1);
+  alu32_driver(-2147483648, 10, 0, 1, 1);
+
+  /*  
   printf("ALU32 Driver\n");
   printf("and test\n");     
-  alu32_driver(12, 4, 0, 0, 0);   
+  alu32_driver(1, 1, 0, 0, 0);  
   printf("or test\n");      
   alu32_driver(10, 4, 1, 0, 0);         
   printf("addition\n");     
@@ -138,7 +150,7 @@ int main(int argc, char **argv) {
   alu32_driver(12, 4, 0, 1, 1);
   printf("slt\n");          
   alu32_driver(12, 4, 1, 1, 1);
- 
+  */
 
   return 0;
 }

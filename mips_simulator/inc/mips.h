@@ -113,11 +113,16 @@ typedef struct {
   FA *f1;
   MUX4 *mux4;
   MUX *binvert;
+  NOTGate *ngates;
+  ANDGateN *agatens;
+  ORGateN *ogaten;
 } ALU_MSB;
 
 typedef struct {
   ALU *alus;
   ALU_MSB *alumsb;
+  ORGateN *ogaten;
+  NOTGate *ngate;
 } ALU32;
 
 void path_set_signal(Path *p, Signal s);
@@ -200,15 +205,12 @@ void alu_init(ALU *alu, Path *op1, Path *op2, Path *bin, Path *a, Path *b, Path 
 void alu_run(ALU *alu);
 void alu_release(ALU *alu);
 
-void alu_msb_init(ALU_MSB *alu_msb, Path *op1, Path *op2, Path *bin, Path *a, Path *b, Path *less, Path *carryin, Path *s, Path *carryout, Path *set);
+void alu_msb_init(ALU_MSB *alu_msb, Path *op1, Path *op2, Path *bin, Path *a, Path *b, Path *less, Path *carryin, Path *s, Path *carryout, Path *set, Path *overflow);
 void alu_msb_run(ALU_MSB *alu);
 void alu_msb_release(ALU_MSB *alu);
 void alu_msb_driver(Signal in1, Signal in2, Signal o1, Signal o2, Signal bin, Signal carry_in);
 
-void alu32_init(ALU32 *alu32, Path *ops, Bus *a, Bus *b, Bus *s);
+void alu32_init(ALU32 *alu32, Path *ops, Bus *a, Bus *b, Bus *s, Path *zero, Path *overflow);
 void alu32_run(ALU32 *alu32);
 void alu32_release(ALU32 *alu32);
 void alu32_driver(int na, int nb, Signal o1, Signal o2, Signal bin);
-
-
-
